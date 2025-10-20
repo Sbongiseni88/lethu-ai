@@ -1,0 +1,34 @@
+Language,Concept,Description,Example		
+Python,Variables,Used to store data values.,x = 5		
+Python,Data Types,"Common types: int, float, str, list, dict, bool.",type(42) -> int		
+Python,Functions,Reusable blocks of code.,def greet(): print('Hello')		
+Python,Loops,Repeat actions with for or while.,for i in range(5): print(i)		
+Python,Conditionals,Make decisions using if/else.,if x > 0: print('Positive')		
+Python,Modules,Code libraries for reuse.,import math		
+Python,Classes,Blueprint for creating objects.,class Dog: pass		
+Python,Exceptions,Handle errors gracefully.,try: x=1/0 except ZeroDivisionError: pass		
+CSS,Selectors,Target HTML elements for styling.,p { color: red	 }	
+CSS,Colors,Define text and background colors.,background-color: blue		
+CSS,Box Model,"Controls layout: margin, border, padding, content.",div { margin: 10px	 }	
+CSS,Flexbox,Flexible layout model for responsive design.,display: flex		
+CSS,Grid,2D layout system for arranging elements.,display: grid		
+CSS,Typography,"Control text size, font, spacing.",font-size: 16px		
+CSS,Pseudo-classes,Apply styles to specific states.,a:hover { color: green	 }	
+CSS,Media Queries,Make responsive designs.,@media (max-width: 600px) { ... }		
+HTML,Tags,Basic building blocks of HTML.,<p>Hello</p>		
+HTML,Attributes,Provide extra information about elements.,<img src='cat.png'>		
+HTML,Headings,Define titles or subtitles.,<h1>Main Title</h1>		
+HTML,Links,Create hyperlinks.,<a href='https://example.com'>Visit</a>		
+HTML,Lists,Ordered or unordered item lists.,<ul><li>Item</li></ul>		
+HTML,Forms,Collect user input.,<form><input type='text'></form>		
+HTML,Tables,Display tabular data.,<table><tr><td>Data</td></tr></table>		
+HTML,Semantic Tags,Provide meaning to structure.,"<header>, <footer>, <article>"		
+JavaScript,Variables,"Store data using var, let, const.",let name = 'Lethu'		
+JavaScript,Functions,Reusable blocks of JS code.,function greet() { console.log('Hi')	 }	
+JavaScript,Objects,Key-value data structures.,"const person = {name:'Tim', age:25}	"
+JavaScript,Arrays,Store lists of values.,const nums = [1,2,3]"	"
+JavaScript,Loops,Repeat actions.,for(let i=0; i<5; i++){ console.log(i); }
+JavaScript,DOM Manipulation,Change HTML elements dynamically.,document.getElementById('id').textContent='Hi';
+JavaScript,Events,Handle user actions like clicks.,button.onclick = () => alert('Clicked');
+JavaScript,Promises,Handle async operations.,fetch(url).then(r => r.json())
+"
