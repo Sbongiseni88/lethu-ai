@@ -27,9 +27,15 @@ Lethu’s Response:
 prompt = ChatPromptTemplate.from_template(template)
 chain=prompt | model 
 
-result=chain.invoke({
-    "context": "Python is a programming language that lets you work quickly and integrate systems more effectively.",
-    "question": "Can you explain what Python is?"})
+while True:
+    print("\n\n--------------------------------")
+    question=input("Ask Lethu a coding question (or type 'exit' to quit): ")
+    print("\n--------------------------------")
+    if question.lower() == 'exit':
+        break
+    result=chain.invoke({
+    "context":[],
+    "question": question})
 
 print("Lethu's Response:")
 print(result)
