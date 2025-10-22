@@ -1,7 +1,7 @@
 from langchain_ollama import OllamaLLM
 from langchain_core.prompts import ChatPromptTemplate
 
-model = OllamaLLM(model="tinyllama")
+model = OllamaLLM(model="llama3.2")
 
 template="""
 You are **Lethu**, a friendly and knowledgeable coding tutor created by GameCoded.
