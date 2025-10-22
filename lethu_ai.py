@@ -42,6 +42,16 @@ while True:
         break
     print("Please choose one of: python, html, css, javascript")
 
+# Difficulty selection (Phase A)
+print("What difficulty level would you like? (beginner/intermediate/advanced)")
+supported_levels = {"beginner", "intermediate", "advanced"}
+level = "beginner"
+while True:
+    level = input("Choose level: ").strip().lower()
+    if level in supported_levels:
+        break
+    print("Please choose: beginner, intermediate, or advanced")
+
 # Use a smaller k for faster retrieval (lower latency). You can increase k later if you want more context.
 # Lower k to 1 for minimal retrieval latency; increase if you want more context returned.
 retriever = get_retriever(k=1)
@@ -215,6 +225,70 @@ while True:
         decorated = decorate_with_emojis(output, chosen_language)
         print("Lethu's Answer:\n")
         print(decorated)
+
+        # --- Phase A follow-up prompt ---
+        print("\nWould you like an example, a quick quiz, more detail, or skip? (example/quiz/more/skip)")
+        follow = input("Your choice: ").strip().lower()
+
+        # Simple fuzzy matching
+        if follow.startswith("e"):
+            # Ask for an example from the model: short code snippet or demonstration
+            try:
+                prompt_example = f"Provide a short, clear example for this concept in {chosen_language} at {level} level. Context: {context_text} Question: {question}"
+                example_res = None
+                if hasattr(model, "invoke"):
+                    example_res = model.invoke(prompt_example)
+                elif hasattr(model, "generate"):
+                    example_res = model.generate(prompt_example)
+                example_text = example_res if isinstance(example_res, str) else (example_res.get('text') if isinstance(example_res, dict) else str(example_res))
+                print("\nExample:\n")
+                print(decorate_with_emojis(example_text or "(no example available)", chosen_language))
+            except Exception as e:
+                print("Could not generate example:", e)
+
+        elif follow.startswith("q"):
+            # Quick quiz: ask the model to generate 1 multiple-choice question and evaluate the answer
+            try:
+                quiz_prompt = f"Create a 1-question multiple choice quiz (A/B/C) about: {question}. Include the correct answer labeled. Keep it short."
+                quiz_res = None
+                if hasattr(model, "invoke"):
+                    quiz_res = model.invoke(quiz_prompt)
+                elif hasattr(model, "generate"):
+                    quiz_res = model.generate(quiz_prompt)
+                quiz_text = quiz_res if isinstance(quiz_res, str) else (quiz_res.get('text') if isinstance(quiz_res, dict) else str(quiz_res))
+                print("\nQuick Quiz:\n")
+                print(quiz_text)
+                user_ans = input("Your answer (A/B/C): ").strip().upper()
+                # Ask the model to grade the answer
+                grade_prompt = f"The quiz was: {quiz_text}\nUser answered: {user_ans}. Is this correct? Reply only 'correct' or 'incorrect' and one short sentence of feedback."
+                grade_res = None
+                if hasattr(model, "invoke"):
+                    grade_res = model.invoke(grade_prompt)
+                elif hasattr(model, "generate"):
+                    grade_res = model.generate(grade_prompt)
+                grade_text = grade_res if isinstance(grade_res, str) else (grade_res.get('text') if isinstance(grade_res, dict) else str(grade_res))
+                print("\nResult:\n", grade_text)
+            except Exception as e:
+                print("Could not generate quiz:", e)
+
+        elif follow.startswith("m"):
+            # More detail: ask the model for a deeper explanation
+            try:
+                more_prompt = f"Give a deeper, step-by-step explanation for: {question} in {chosen_language} at {level} level. Context: {context_text}"
+                more_res = None
+                if hasattr(model, "invoke"):
+                    more_res = model.invoke(more_prompt)
+                elif hasattr(model, "generate"):
+                    more_res = model.generate(more_prompt)
+                more_text = more_res if isinstance(more_res, str) else (more_res.get('text') if isinstance(more_res, dict) else str(more_res))
+                print("\nMore detail:\n")
+                print(decorate_with_emojis(more_text or "(no additional detail)", chosen_language))
+            except Exception as e:
+                print("Could not generate more detail:", e)
+
+        else:
+            # skip or unknown input - continue the loop
+            continue
 
 
 
